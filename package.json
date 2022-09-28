@@ -1,0 +1,9 @@
+{
+    "name": "alexmcbride.uk",
+    "version": "1.0.0",
+    "author": "Alex McBride",
+    "private": "true",
+    "workspaces": [
+        "./packages/*"
+    ]
+}
