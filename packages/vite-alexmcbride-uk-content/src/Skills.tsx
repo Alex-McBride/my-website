@@ -1,64 +1,41 @@
-import { Box, Card, CardActionArea, CardContent, Typography, Unstable_Grid2 as Grid } from "@mui/material";
-import { Bobbing } from "./animation";
-import { Background, Content } from "./parallax";
+import { Box, Card, CardContent, CardHeader, Typography, Unstable_Grid2 as Grid } from "@mui/material";
+import { ReactNode } from "react";
 
-export function Skills({ offset, factor = 1 }: { offset: number, factor?: number}) {
-    // TODO responsive
-    // TODO These cards are going to flip when you click on them
-    // TODO compose these better
+const SkillCard = (props: { title: string, children: ReactNode }) => (
+    <Grid xs={12} sm={6}>
+        <Card sx={{ height: "100%" }}>
+            <CardHeader title={props.title} />
+            <CardContent>
+                {props.children}
+            </CardContent>
+        </Card>
+    </Grid>
+)
+
+const SkillsGrid = () => (
+    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <SkillCard title="Languages">
+            <Typography variant="body2">
+                Kotlin, Java, Scala, Typescript, Javascript, Python, SQL
+            </Typography>
+        </SkillCard>
+        <SkillCard title="Platforms and Frameworks">
+            <Typography variant="body2">AWS, Infrastructure As Code (CloudFormation, CDK),  Spark, ElasticSearch, React</Typography>
+        </SkillCard>
+        <SkillCard title="Methodologies">
+            <Typography variant="body2">Continuous Deployment, Petabyte-scale DataLakes, Profiling and Optimisation, A/B Testing and Experimentation, Distributed Systems, Machine Learning</Typography>
+        </SkillCard>
+        <SkillCard title="Other Skills">
+            <Typography variant="body2">I am learning 🇸🇪 Swedish (currently CEFR A2/B1 level)</Typography>
+        </SkillCard>
+    </Grid>
+)
+
+export function Skills() {
     return (
-        <>
-        <Background offset={offset} speed={0.2} factor={factor}>
-            <Bobbing>
-                <Box sx={{ position: "inherit", left: "70%", top: "50%"}}>
-                    👀 
-                </Box>
-            </Bobbing>
-        </Background>
-        <Content offset={offset} speed={0.4} factor={factor}>
-            <Box sx={{width: [1, 1, 1, 1, 2/3]}}>
-
-                <Typography variant="h2">Skills</Typography>
-                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid xs={6}>
-                        <Card>
-                            <CardActionArea>
-                                <CardContent>
-                                    <Typography>Languages</Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-                    </Grid>
-                    <Grid xs={6}>
-                        <Card>
-                            <CardActionArea>
-                                <CardContent>
-                                    <Typography>Platforms and Frameworks</Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-                    </Grid>
-                    <Grid xs={6}>
-                        <Card>
-                            <CardActionArea>
-                                <CardContent>
-                                    <Typography>Methodologies</Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-                    </Grid>
-                    <Grid xs={6}>
-                        <Card>
-                            <CardActionArea>
-                                <CardContent>
-                                    <Typography>Other skills</Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-                    </Grid>
-                </Grid>
-            </Box>
-        </Content>
-    </>
+        <Box sx={{ width: [1, 1, 1, 1, 2 / 3] }}>
+            <Typography variant="h2">Skills</Typography>
+            <SkillsGrid />
+        </Box>
     )
 }

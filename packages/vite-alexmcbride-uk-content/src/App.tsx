@@ -1,24 +1,28 @@
-import { ChangeHistoryRounded } from '@mui/icons-material'
-import { AppBar, Container, createTheme, CssBaseline, SvgIcon, ThemeProvider, Toolbar, Typography } from '@mui/material'
-import { Parallax, ParallaxLayer } from '@react-spring/parallax'
-import { Hero } from './Hero'
+import { Box, CssBaseline, ThemeProvider } from '@mui/material';
+import { Education } from './Education';
+import { Employment } from './Employment';
+import { Hero } from './Hero';
 import { Skills } from './Skills';
+import { theme } from './theme';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
 
 function App() {
-
   return (
-  <ThemeProvider theme={darkTheme}>
+  <ThemeProvider theme={theme}>
     <CssBaseline />
-    <Parallax pages={2}>
-      <Hero offset={0}/>
-      <Skills offset={1}/>
-    </Parallax>
+    <Box sx={{
+      padding: 2,
+      display: `flex`,
+      flexDirection: `column`,
+      alignItems: `center`,
+      justifyContent: `center`,
+      rowGap: 5
+    }}>
+      <Hero/>
+      <Skills/>
+      <Employment/>
+      <Education/>
+    </Box>
   </ThemeProvider>
   )
 }
