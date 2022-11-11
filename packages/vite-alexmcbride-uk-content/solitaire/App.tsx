@@ -4,55 +4,29 @@ import {
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
-  UniqueIdentifier,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import {
-  Box,
-  CssBaseline,
-  Stack,
-  ThemeProvider,
-  Unstable_Grid2 as Grid,
-} from "@mui/material";
+import { Unstable_Grid2 as Grid } from "@mui/material";
 import { useState } from "react";
-import { theme } from "../src/theme";
-import { FullSizeCard } from "./Card";
+import { FaceDownCard } from "./Card";
 import { CardStack } from "./CardStack";
-import { Draggable } from "./Draggable";
+import { Foundations } from "./Foundations";
 import {
-  makeCard,
   CardId,
-  DraggableCard,
-  Rank,
-  Ranks,
+  drawFromStock,
+  GameState,
+  MoveTarget,
+  newGame,
+  proposeMove,
+  recycleWaste,
   Suit,
   Suits,
-  differentColours,
-  extract,
-} from "./DraggableCard";
+} from "./solitaire";
+import { Waste } from "./Waste";
 
 function App() {
-  const containers = ["A", "B", "C", "D", "E", "F", "G"];
-
-  const [contents, setContents] = useState<Map<UniqueIdentifier, CardId[]>>(
-    new Map([
-      [
-        "A",
-        [
-          makeCard("A", Suits.Spades),
-          makeCard("K", Suits.Diamonds),
-          makeCard("Q", Suits.Clubs),
-        ],
-      ],
-      ["B", []],
-      ["C", []],
-      ["D", []],
-      ["E", []],
-      ["F", []],
-      ["G", []],
-    ])
-  );
+  const [gameState, setGameState] = useState<GameState>(() => newGame());
   const mouseSensor = useSensor(MouseSensor);
   const touchSensor = useSensor(TouchSensor);
   const kbSensor = useSensor(KeyboardSensor);
@@ -61,11 +35,36 @@ function App() {
 
   return (
     <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-      <Stack direction={"row"} spacing={3}>
-        {containers.map((id) => (
-          <CardStack key={id} id={id} cards={contents.get(id) ?? []} />
+      <Grid container spacing={2} columns={7}>
+        <Grid xs={1}>
+          <button
+            onClick={() =>
+              setGameState((prev) =>
+                prev.stock.length > 0 ? drawFromStock(prev) : recycleWaste(prev)
+              )
+            }
+            style={{
+              margin: "0px",
+              padding: "0px",
+            }}
+          >
+            <FaceDownCard />
+          </button>
+        </Grid>
+
+        <Grid xs={1}>
+          <Waste cards={gameState.waste} />
+        </Grid>
+
+        <Grid xs={1} />
+        <Foundations foundations={gameState.foundations} />
+
+        {gameState.piles.map((pile, i) => (
+          <Grid xs={1} key={`pile${i}`}>
+            <CardStack id={`pile${i}`} cards={pile} />
+          </Grid>
         ))}
-      </Stack>
+      </Grid>
     </DndContext>
   );
 
@@ -77,36 +76,29 @@ function App() {
       // We pinky promise that the id of the active element is a card
       // TODO validate this
       const movedCard: CardId = active.id as CardId;
-      // Maintain the card states manually here -- TODO encapsulate all of this in some sort of "game state"
-      setContents((prev) => {
-        // Check if the last (topmost) card in the target stack is the right suit (or target stack is empty)
-        const targetCard = prev.get(over.id)?.at(-1);
-        if (
-          targetCard !== undefined &&
-          !differentColours(extract(movedCard).suit, extract(targetCard).suit)
-        ) {
-          console.log(
-            `Moved card ${movedCard} is not suit-compatible with target card ${targetCard}`
-          );
-          return prev;
-        }
-
-        // Obviously shouldn't actually mutate previous state here, getting rid of this anyway for the game state
-        const [key, vs] = Array.from(prev.entries()).find(([k, v]) => {
-          const includes = v.includes(movedCard);
-          console.log(includes);
-          return includes;
-        })!;
-        // Move everything including and after the dragged item
-        const indexOfMoved = vs.findIndex((c) => c === movedCard);
-        console.log(`Moved card at index ${indexOfMoved} in stack ${key}`);
-        const toMove = vs.slice(indexOfMoved);
-        console.log(`Moving cards ${toMove} to stack ${over.id}`);
-        prev.set(key, vs.slice(0, indexOfMoved));
-        prev.set(over.id, prev.get(over.id)!.concat(toMove));
-
-        console.log(`New state: ${JSON.stringify([...prev])}`);
-        return new Map(prev);
+      console.log(`Moving ${movedCard} over ${JSON.stringify(over)}`);
+      let target: MoveTarget;
+      if (typeof over.id === "string" && over.id.startsWith("pile")) {
+        const pileIndex = Number.parseInt(over.id.charAt(4));
+        target = {
+          target: "pile",
+          pileIndex,
+        };
+      } else if (
+        typeof over.id === "string" &&
+        Object.values(Suits).find((suit) => suit === over.id) !== undefined
+      ) {
+        target = {
+          target: "foundation",
+          suit: over.id as Suit,
+        };
+      } else {
+        throw Error(
+          `Don't know how to handle dropping over ${JSON.stringify(over)}`
+        );
+      }
+      setGameState((prev) => {
+        return proposeMove(prev, movedCard, target) ?? prev;
       });
     }
   }
