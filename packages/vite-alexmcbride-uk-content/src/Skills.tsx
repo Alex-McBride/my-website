@@ -20,26 +20,28 @@ const SkillCard = (props: { title: string; children: ReactNode }) => (
 const SkillsGrid = () => (
   <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
     <SkillCard title="Languages">
-      <Typography variant="body2">
-        Kotlin, Java, Scala, Typescript, Javascript, Python, SQL
+      <Typography>
+        Kotlin, Java, Scala, TypeScript, JavaScript, Python, SQL; prior
+        experience in C/C++, C#.
       </Typography>
     </SkillCard>
-    <SkillCard title="Platforms and Frameworks">
-      <Typography variant="body2">
-        AWS, Infrastructure As Code (CloudFormation, CDK), Spark, ElasticSearch,
-        React
+    <SkillCard title="Technologies">
+      <Typography>
+        AWS (wide variety of services), Infrastructure As Code (CloudFormation,
+        CDK), Spark, ElasticSearch, React, Spring, Selenium, Cypress, Gradle,
+        Git, Linux.
       </Typography>
     </SkillCard>
     <SkillCard title="Methodologies">
-      <Typography variant="body2">
+      <Typography>
         Continuous Deployment, Petabyte-scale DataLakes, Profiling and
         Optimisation, A/B Testing and Experimentation, Distributed Systems,
-        Machine Learning
+        Machine Learning (deep unsupervised clustering).
       </Typography>
     </SkillCard>
     <SkillCard title="Other Skills">
-      <Typography variant="body2">
-        I am learning 🇸🇪 Swedish (currently CEFR A2/B1 level)
+      <Typography>
+        I am learning 🇸🇪 Swedish (currently CEFR A2/B1 level).
       </Typography>
     </SkillCard>
   </Grid>

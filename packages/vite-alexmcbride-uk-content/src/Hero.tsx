@@ -7,7 +7,7 @@ export function Hero() {
         Hi, I'm Alex
       </Typography>
       <Typography variant="subtitle1">
-        I'm a full-stack software engineer based in Edinburgh, Scotland
+        I'm a full-stack software engineer based in Edinburgh, Scotland.
       </Typography>
     </Box>
   );

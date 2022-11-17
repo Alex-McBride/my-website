@@ -24,7 +24,7 @@ export function Employment() {
       <Card>
         <CardHeader
           title="Amazon"
-          subheader="Software Development Engineer, July 2016 - March 2022"
+          subheader="Software Development Engineer II, July 2016 - March 2022"
         />
         <CardContent>
           <Typography>
@@ -35,32 +35,32 @@ export function Employment() {
           </Typography>
           <ul>
             <li>
-              Identified and implemented optimization in key advertising
-              targeting system resulting in a 60% descaling of fleet size and
-              $mm yearly cost savings.
+              Led replacement of Amazon Advertising's ML model-based advertising
+              targeting system evaluating 10s of millions of customers a day.
+              Wrote critical-path model evaluation code, negotiated
+              multi-stakeholder buy-in for necessary changes in interlinked
+              systems, and coordinated final testing and flipover to the new
+              system. This reduced hardware costs by 40%, significantly reduced
+              operational load, and unlocked use of state-of-the-art modelling
+              approaches to improve targeting performance.
             </li>
             <li>
-              Led replacement of online ML model-based advertising targeting
-              system to an offline, batch system. This saved considerably on
-              hardware costs and permitted much more complex modelling
-              techniques to be used in the future.
+              Identified and implemented optimization in a key advertising
+              targeting system which was quickly approaching hard scaling
+              limits. This reduced CPU load dramatically, resulting in a 60%
+              descaling of fleet size (over a million dollar saving on yearly
+              hardware expenditure), and freed up engineering resources
+              previously assigned to optimise this system to work on
+              rearchitecting it to avoid hitting that scaling limit. The yearly
+              savings of expenditure because of my change was 10% of an
+              organisation-wide savings goal to increase free cash flow.
             </li>
             <li>
               Delivered a new type of advertising audience for endemic customers
               based on a model which matches customers and products with the
-              highest propensity of purchase. Conversion results are
-              significantly higher than traditional rule-based approaches.
-            </li>
-            <li>
-              Optimized audience overlap report generation to reduce computed
-              overlaps by a factor of 100 using permission-aware filtering.
-            </li>
-            <li>
-              Delivered a new web-based advertising performance reporting tool
-              to replace legacy Excel-based system. Initally rolled out to
-              internal account managers, it received overwhelmingly positive
-              feedback before being rolled out for advertiser self-service use
-              in the Amazon DSP.
+              highest propensity of purchase, based on their Amazon activity.
+              Conversion results were significantly higher than traditional
+              rule-based targeting approaches.
             </li>
             <li>
               Worked on launching .moi and .bot, two new gTLDs operated by
@@ -79,10 +79,31 @@ export function Employment() {
         <CardContent>
           <Typography>
             Edesix makes body-worn video cameras for healthcare, law
-            enforcement, and retail organizations. I worked for Edesix full-time
-            for a year before enrolling at Strathclyde University, and worked
-            there every summer between academic years. Edesix was acquired in
-            2018 and is now part of Motorola Solutions.
+            enforcement, and retail organizations. My key deliveries include:
+          </Typography>
+          <ul>
+            <li>
+              Prototyped an Android client app and Linux server running on the
+              body-worn video camera to allow viewing of recordings while out in
+              the field. Delivered solution under challenging hardware
+              constraints (200MHz ARM processor, limited storage space) which
+              involved performing real-time transcoding of video container
+              format from the proprietary one on the camera to MKV.
+            </li>
+            <li>
+              Wrote the software for a project Edesix delivered for Ingenico,
+              one of the world's leading payment terminal manufacturers. The
+              software controlled a charge/discharge circuit to cycle batteries
+              on returned payment terminals, determining if they needed to be
+              replaced. In the first year over 200,000 batteries were tested
+              that would otherwise have been thrown away, generating
+              environmental and cost savings.
+            </li>
+          </ul>
+          <Typography>
+            I worked for Edesix full-time from 2012-2013 before enrolling at
+            Strathclyde University, and was invited back to Edesix to work there
+            every summer between semesters.
           </Typography>
         </CardContent>
       </Card>

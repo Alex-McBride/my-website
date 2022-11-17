@@ -1,4 +1,9 @@
-import { createTheme, Theme, ThemeOptions } from "@mui/material";
+import {
+  createTheme,
+  experimental_sx as sx,
+  Theme,
+  ThemeOptions,
+} from "@mui/material";
 import { deepmerge } from "@mui/utils";
 
 /* We want to polyfill flag emojis for systems (e.g. Windows) that do not support them out of the box. The way we achieve this is
@@ -9,7 +14,14 @@ import { deepmerge } from "@mui/utils";
 export const theme: Theme = (function () {
   const themeOptions: ThemeOptions = {
     palette: {
-      mode: "dark",
+      mode: "light",
+    },
+    components: {
+      MuiCard: {
+        styleOverrides: {
+          root: sx({ boxShadow: 3 }),
+        },
+      },
     },
   };
   const baseTheme = createTheme(themeOptions);

@@ -46,17 +46,6 @@ export function Education() {
           </ListItem>
         </List>
       </Card>
-      <Card>
-        <CardHeader
-          title="University of Edinburgh"
-          subheader="BSc Computer Science, 2010-2012"
-        />
-        <CardContent>
-          <Typography>
-            Left after second year to pursue full time employment at Edesix.
-          </Typography>
-        </CardContent>
-      </Card>
     </Stack>
   );
 }
